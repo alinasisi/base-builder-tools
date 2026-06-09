@@ -8,11 +8,12 @@ on:
 jobs:
   report:
     runs-on: ubuntu-latest
+    permissions:
+      contents: write
     steps:
       - uses: actions/checkout@v4
         with:
           token: ${{ secrets.GH_PAT }}
-          fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
           node-version: '22'
@@ -24,13 +25,10 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_TOKEN: ${{ secrets.GH_PAT }}
       - name: Commit and push report
-        env:
-          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.name "base-builder-bot"
           git config --global user.email "bot@base-builder-tools"
-          git remote set-url origin "https://x-access-token:${GH_PAT}@github.com/alinasisi/base-builder-tools.git"
           mkdir -p reports
           git add reports/
           git diff --staged --quiet || git commit -m "report: daily builder metrics $(date +%Y-%m-%d)"
-          git push origin main
+          git push
