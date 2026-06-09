@@ -1,23 +1,34 @@
+require('dotenv').config();
 const { getGitHubStats } = require('./github');
 const { getETHGlobalEvents, getTalentCampaigns } = require('./hackathons');
 const fs = require('fs');
 const path = require('path');
 const https = require('https');
 
-function openaiRequest(prompt) {
+const FREE_MODELS = [
+  'moonshotai/kimi-k2.6:free',
+  'google/gemma-4-31b-it:free',
+  'google/gemma-4-26b-a4b-it:free',
+  'nvidia/nemotron-3-super-120b-a12b:free',
+  'poolside/laguna-m.1:free'
+];
+
+function requestModel(model, prompt) {
   return new Promise((resolve, reject) => {
     const body = JSON.stringify({
-      model: 'gpt-4o-mini',
+      model,
       max_tokens: 1024,
       messages: [{ role: 'user', content: prompt }]
     });
     const req = https.request({
-      hostname: 'api.openai.com',
-      path: '/v1/chat/completions',
+      hostname: 'openrouter.ai',
+      path: '/api/v1/chat/completions',
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
-        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`
+        'Authorization': `Bearer ${process.env.OPENAI_API_KEY}`,
+        'HTTP-Referer': 'https://github.com/alinasisi/base-builder-tools',
+        'X-Title': 'Base Builder Tools'
       }
     }, (res) => {
       let data = '';
@@ -25,6 +36,10 @@ function openaiRequest(prompt) {
       res.on('end', () => {
         try {
           const json = JSON.parse(data);
+          if (json.error || !json.choices || !json.choices[0]) {
+            reject(new Error(json.error?.message || 'No response'));
+            return;
+          }
           resolve(json.choices[0].message.content);
         } catch(e) { reject(e); }
       });
@@ -35,13 +50,31 @@ function openaiRequest(prompt) {
   });
 }
 
+async function aiRequest(prompt) {
+  for (const model of FREE_MODELS) {
+    try {
+      console.log(`Trying model: ${model}`);
+      const result = await requestModel(model, prompt);
+      console.log(`Success with: ${model}`);
+      return result;
+    } catch(e) {
+      console.log(`Failed (${model}): ${e.message}`);
+    }
+  }
+  return '*Analysis unavailable — all models failed*';
+}
+
 async function generateReport() {
   const date = new Date().toISOString().split('T')[0];
+  console.log(`Generating report for ${date}...`);
+
   const github = await getGitHubStats();
+  console.log('GitHub stats:', github);
+
   const campaigns = await getTalentCampaigns();
   const hackathons = await getETHGlobalEvents();
 
-  const analysis = await openaiRequest(
+  const analysis = await aiRequest(
     `You are a Base ecosystem analyst. Write a short daily insight (150-200 words) for ${date} covering:
 1. One interesting trend in Base/onchain builder space today
 2. A practical tip for builders improving their Talent Protocol score
@@ -49,7 +82,7 @@ async function generateReport() {
 Be specific, technical, and useful. No fluff. Format as markdown.`
   );
 
-  const researchTopic = await openaiRequest(
+  const researchTopic = await aiRequest(
     `Generate a short research note (100-150 words) about one specific Base ecosystem topic for ${date}.
 Pick from: DeFi protocol mechanics, NFT infrastructure, onchain identity, AI agents on Base, or creator tools.
 Be specific with protocol names where relevant. Format as markdown.`
@@ -70,9 +103,9 @@ ${researchTopic}
 ## Live Metrics
 
 ### GitHub (alinasisi)
-- Followers: ${github.followers}
-- Public Repos: ${github.repos}
-- Engagement Score: ${github.score} → ${github.level}
+- Followers: ${github.followers || 'N/A'}
+- Public Repos: ${github.repos || 'N/A'}
+- Engagement Score: ${github.score || 'N/A'} → ${github.level || 'N/A'}
 
 ### Active Campaigns
 ${campaigns}
@@ -85,19 +118,23 @@ ${hackathons}
 `;
 
   const dir = path.join(__dirname, '..', 'reports');
-  if (!fs.existsSync(dir)) fs.mkdirSync(dir);
+  if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
   fs.writeFileSync(path.join(dir, `${date}.md`), report);
+  console.log(`Report saved: reports/${date}.md`);
 
-  const indexLines = fs.readdirSync(dir)
+  const files = fs.readdirSync(dir)
     .filter(f => f.endsWith('.md') && f !== 'README.md')
     .sort().reverse()
     .map(f => `- [${f.replace('.md','')}](${f})`);
 
   fs.writeFileSync(path.join(dir, 'README.md'),
-    `# Builder Reports\n\nDaily Base ecosystem analysis.\n\n${indexLines.join('\n')}\n`
+    `# Builder Reports\n\nDaily Base ecosystem analysis.\n\n${files.join('\n')}\n`
   );
 
-  console.log(`Report saved: reports/${date}.md`);
+  console.log('Done!');
 }
 
-generateReport().catch(console.error);
+generateReport().catch(err => {
+  console.error('Fatal error:', err);
+  process.exit(1);
+});
