@@ -1,16 +1,21 @@
-<div align="center">
-# 🔨 Base Builder Tools
-**Daily AI-powered intelligence for Base ecosystem builders**
-[![Daily Report](https://github.com/alinasisi/base-builder-tools/actions/workflows/daily-report.yml/badge.svg)](https://github.com/alinasisi/base-builder-tools/actions/workflows/daily-report.yml)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
-[![Built on Base](https://img.shields.io/badge/Built%20on-Base-0052FF?logo=coinbase)](https://base.org)
-[![Talent Protocol](https://img.shields.io/badge/Talent-Protocol-8B5CF6)](https://talent.app)
-[![OpenRouter](https://img.shields.io/badge/AI-OpenRouter-FF6B35)](https://openrouter.ai)
+<p align="center">
+  <h1>🔨 Base Builder Tools</h1>
+  <strong>Daily AI-powered intelligence for Base ecosystem builders</strong>
+</p>
 
-*Automated daily reports on Base ecosystem — hackathons, campaigns, GitHub metrics, and AI analysis*
+<p align="center">
+  <a href="https://github.com/alinasisi/base-builder-tools/actions/workflows/daily-report.yml"><img src="https://github.com/alinasisi/base-builder-tools/actions/workflows/daily-report.yml/badge.svg" alt="Daily Report"></a>
+  <a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/License-MIT-yellow.svg" alt="License: MIT"></a>
+  <a href="https://base.org"><img src="https://img.shields.io/badge/Built%20on-Base-0052FF?logo=coinbase" alt="Built on Base"></a>
+  <a href="https://talent.app"><img src="https://img.shields.io/badge/Talent-Protocol-8B5CF6" alt="Talent Protocol"></a>
+  <a href="https://openrouter.ai"><img src="https://img.shields.io/badge/AI-OpenRouter-FF6B35" alt="OpenRouter"></a>
+</p>
 
-[📊 View Latest Report](reports/) · [🏗 Base Ecosystem](https://base.org) · [🏆 Talent Protocol](https://talent.app)
-</div>
+<p align="center"><em>Automated daily reports on Base ecosystem — hackathons, campaigns, GitHub metrics, and AI analysis</em></p>
+
+<p align="center">
+  <a href="reports/">📊 View Latest Report</a> · <a href="https://base.org">🏗 Base Ecosystem</a> · <a href="https://talent.app">🏆 Talent Protocol</a>
+</p>
 
 ---
 
@@ -35,10 +40,6 @@ Daily reports live in [`/reports`](reports/) — each one is unique AI-generated
 | Date | Topics |
 |------|--------|
 | [Latest →](reports/) | Base ecosystem analysis, builder tips, research notes |
-
----
-
-## 🚀 How It Works
 
 ---
 
@@ -80,8 +81,7 @@ Daily reports live in [`/reports`](reports/) — each one is unique AI-generated
 
 ---
 
-<div align="center">
-Built with ❤️ by [alinasisi.base.eth](https://talent.app/alinasisi.eth)
-
-⭐ Star this repo if it helps your Builder Score!
-</div>
+<p align="center">
+  Built with ❤️ by <a href="https://talent.app/alinasisi.eth">alinasisi.base.eth</a><br>
+  ⭐ Star this repo if it helps your Builder Score!
+</p>
