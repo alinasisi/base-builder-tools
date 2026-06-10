@@ -1,12 +1,92 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="talentapp:project_verification" content="b3f88f74f03ae129664004180a41bea4d7163771ed6e8b175361d86c0e4127e8efd381ab2045fb27d7cef037e6d23c49727d472acde98b66de24850e9d82d927">
 <title>Base Builder Tools</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { font-family: -apple-system, BlinkMacSystemFont, sans-serif; background: #0a0a0a; color: #fff; min-height: 100vh; }
+  nav { padding: 20px 40px; display: flex; align-items: center; gap: 12px; border-bottom: 1px solid #1a1a1a; }
+  nav span { font-size: 20px; font-weight: 700; color: #0052FF; }
+  .badge { font-size: 11px; padding: 3px 8px; border-radius: 4px; background: #0052FF20; color: #0052FF; border: 1px solid #0052FF40; }
+  .hero { padding: 80px 40px; max-width: 900px; margin: 0 auto; }
+  h1 { font-size: 52px; font-weight: 800; line-height: 1.1; margin-bottom: 20px; }
+  h1 span { color: #0052FF; }
+  .sub { font-size: 18px; color: #888; margin-bottom: 40px; max-width: 500px; line-height: 1.6; }
+  .btns { display: flex; gap: 12px; margin-bottom: 60px; flex-wrap: wrap; }
+  .btn { padding: 12px 24px; border-radius: 8px; font-size: 14px; font-weight: 600; text-decoration: none; cursor: pointer; }
+  .btn-primary { background: #0052FF; color: white; }
+  .btn-secondary { background: #1a1a1a; color: #fff; border: 1px solid #333; }
+  .stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; margin-bottom: 60px; }
+  .stat { background: #111; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+  .stat-n { font-size: 32px; font-weight: 700; color: #0052FF; }
+  .stat-l { font-size: 13px; color: #666; margin-top: 4px; }
+  .features { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+  .feature { background: #111; border: 1px solid #222; border-radius: 12px; padding: 24px; }
+  .feature h3 { font-size: 16px; margin-bottom: 8px; }
+  .feature p { font-size: 13px; color: #666; line-height: 1.6; }
+  .icon { font-size: 24px; margin-bottom: 12px; }
+  footer { text-align: center; padding: 40px; color: #444; font-size: 13px; border-top: 1px solid #1a1a1a; margin-top: 60px; }
+  footer a { color: #0052FF; text-decoration: none; }
+</style>
 </head>
 <body>
-<h1>Base Builder Tools</h1>
-<p>Daily AI-powered intelligence for Base ecosystem builders.</p>
+<nav>
+  <span>🔨 Base Builder Tools</span>
+  <span class="badge">Built on Base</span>
+  <span class="badge">Open Source</span>
+</nav>
+<div class="hero">
+  <h1>Daily intelligence for<br><span>Base builders</span></h1>
+  <p class="sub">Automated AI-powered reports on the Base ecosystem — Builder Score tracking, hackathon alerts, GitHub metrics.</p>
+  <div class="btns">
+    <a class="btn btn-primary" href="https://github.com/alinasisi/base-builder-tools">View on GitHub</a>
+    <a class="btn btn-secondary" href="https://github.com/alinasisi/base-builder-tools/tree/main/reports">Daily Reports</a>
+    <a class="btn btn-secondary" href="https://talent.app">Talent Protocol</a>
+  </div>
+  <div class="stats">
+    <div class="stat">
+      <div class="stat-n">24/7</div>
+      <div class="stat-l">Automated reporting</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">5+</div>
+      <div class="stat-l">AI models fallback</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">Free</div>
+      <div class="stat-l">GitHub Actions powered</div>
+    </div>
+  </div>
+  <div class="features">
+    <div class="feature">
+      <div class="icon">📊</div>
+      <h3>Builder Score Tracking</h3>
+      <p>Daily monitoring of your Talent Protocol Builder Score with trend analysis and improvement tips.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">🏆</div>
+      <h3>Hackathon Alerts</h3>
+      <p>Never miss a Base or ETHGlobal hackathon. Get notified about new opportunities automatically.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">🤖</div>
+      <h3>AI Ecosystem Analysis</h3>
+      <p>Daily AI-generated insights about Base ecosystem trends, powered by OpenRouter free models.</p>
+    </div>
+    <div class="feature">
+      <div class="icon">⭐</div>
+      <h3>GitHub Metrics</h3>
+      <p>Track your GitHub Engagement Score — stars, followers, forks — and your Builder level.</p>
+    </div>
+  </div>
+</div>
+<footer>
+  Built by <a href="https://talent.app/alinasisi.eth">alinasisi.base.eth</a> · 
+  <a href="https://github.com/alinasisi/base-builder-tools">GitHub</a> · 
+  <a href="https://base.org">Built on Base</a>
+</footer>
 </body>
 </html>
