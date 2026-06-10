@@ -2,7 +2,7 @@ name: Daily Builder Report
 
 on:
   schedule:
-    - cron: '17 8 * * *'
+    - cron: '17 9 * * *'
   workflow_dispatch:
 
 jobs:
@@ -18,10 +18,9 @@ jobs:
         with:
           node-version: '22'
       - run: npm install
-      - run: |
-          DELAY=$((RANDOM % 3600))
-          echo "Sleeping ${DELAY} seconds..."
-          sleep $DELAY
+      - name: Random delay (schedule only)
+        if: github.event_name == 'schedule'
+        run: sleep $((RANDOM % 3600))
       - run: node src/bot.js
         env:
           GITHUB_USERNAME: alinasisi
