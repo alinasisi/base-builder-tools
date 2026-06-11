@@ -23,10 +23,10 @@ jobs:
         run: sleep $((RANDOM % 3600))
       - run: node src/bot.js
         env:
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           GITHUB_USERNAME: alinasisi
           TALENT_WALLET: ${{ secrets.TALENT_WALLET }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          GITHUB_TOKEN: ${{ secrets.GH_PAT }}
+          GH_PAT: ${{ secrets.GH_PAT }}
       - name: Commit and push report
         run: |
           git config --global user.name "base-builder-bot"
