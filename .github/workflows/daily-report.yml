@@ -28,10 +28,13 @@ jobs:
           TALENT_WALLET: ${{ secrets.TALENT_WALLET }}
           GH_PAT: ${{ secrets.GH_PAT }}
       - name: Commit and push report
+        env:
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.name "base-builder-bot"
           git config --global user.email "bot@base-builder-tools"
+          git remote set-url origin "https://x-access-token:${GH_PAT}@github.com/alinasisi/base-builder-tools.git"
           mkdir -p reports
           git add reports/
           git diff --staged --quiet || git commit -m "report: daily builder metrics $(date +%Y-%m-%d)"
-          git push
+          git push origin main
