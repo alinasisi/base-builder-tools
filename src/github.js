@@ -1,7 +1,7 @@
 const axios = require('axios');
 
 const USERNAME = process.env.GITHUB_USERNAME || 'alinasisi';
-const TOKEN = process.env.GITHUB_TOKEN || '';
+const TOKEN = process.env.GH_PAT || '';
 
 async function getGitHubStats() {
   try {
