@@ -1,12 +1,12 @@
 name: Daily Builder Report
-
 on:
   schedule:
+    - cron: '17 7 * * *'
     - cron: '17 9 * * *'
     - cron: '17 11 * * *'
     - cron: '17 13 * * *'
+    - cron: '17 15 * * *'
   workflow_dispatch:
-
 jobs:
   report:
     runs-on: ubuntu-latest
@@ -29,9 +29,6 @@ jobs:
           else
             echo "already_ran=false" >> $GITHUB_OUTPUT
           fi
-      - name: Random delay (schedule only)
-        if: github.event_name == 'schedule' && steps.check.outputs.already_ran == 'false'
-        run: sleep $((RANDOM % 1800))
       - name: Run bot
         if: steps.check.outputs.already_ran == 'false'
         run: node src/bot.js
@@ -48,6 +45,7 @@ jobs:
           git config --global user.name "base-builder-bot"
           git config --global user.email "bot@base-builder-tools"
           git remote set-url origin "https://x-access-token:${GH_PAT}@github.com/alinasisi/base-builder-tools.git"
+          git pull origin main --rebase
           mkdir -p reports
           git add reports/
           git diff --staged --quiet || git commit -m "report: daily builder metrics $(date +%Y-%m-%d)"
